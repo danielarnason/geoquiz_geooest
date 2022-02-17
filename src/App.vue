@@ -10,8 +10,7 @@ import { computed, defineComponent, ref } from 'vue';
 import Kort from '@/components/Kort.vue'
 import Start from '@/components/Start.vue'
 import Summary from '@/components/Summary.vue'
-import { fastfood } from '@/assets/fastfood'
-import { fortidsminder } from "@/assets/fortidsminder";
+import { raadhuse } from "@/assets/raadhuse";
 import { locationFeature } from '@/locationInterface'
 import { lineString } from "@/linestringInterface";
 import Question from '@/components/Question.vue'
@@ -50,12 +49,7 @@ export default defineComponent({
 
     const updateStart = (data: startData) => {
       showStart.value = data.state;
-      category.value = data.category;
-      if (data.category == 'fastfood') {
-        locations.value = getRandomLocations(fastfood.features, numberOfQuestions)
-      } else if (data.category == 'fortidsminder') {
-        locations.value = getRandomLocations(fortidsminder.features, numberOfQuestions)
-      }
+      locations.value = getRandomLocations(raadhuse.features, numberOfQuestions)
     }
 
     const playAgain = () => {
@@ -73,11 +67,7 @@ export default defineComponent({
     }
 
     const insertHighscore = async () => {
-      if (category.value == 'fastfood') {
-        await supabase.from<Highscore>('highscore').insert({name: playerInitials.value, score: totalGuessDistance.value})
-      } else if (category.value == 'fortidsminder') {
-        await supabase.from<Highscore>('highscore_fortidsminder').insert({name: playerInitials.value, score:totalGuessDistance.value})
-      }
+      await supabase.from<Highscore>('highscore_geooest').insert({name: playerInitials.value, score: totalGuessDistance.value})
     }
 
     const finishQuiz = () => {

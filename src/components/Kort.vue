@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, PropType, ref, watch } from 'vue'
+import { defineComponent, onMounted, PropType, ref, watch } from 'vue'
 import maplibregl, { LngLatLike, Map, MapMouseEvent, Marker } from 'maplibre-gl'
 import { locationFeature } from '@/locationInterface';
 import { lineString } from '@/linestringInterface';
@@ -52,8 +52,8 @@ export default defineComponent({
             map.value = new maplibregl.Map({
                 container: 'mapcontainer',
                 style: 'mapbox://styles/daniel-arnason/ckwl2xc0ce32215qnjxat7xfj',
-                center: [11.295584 ,55.341815],
-                zoom: 10,
+                center: [9.5018 ,56.2639],
+                zoom: 6.7,
                 accessToken: 'pk.eyJ1IjoiZGFuaWVsLWFybmFzb24iLCJhIjoiY2pyOHo2OXp3MGI2MDQ5dm1nMzZ0NjJycCJ9.ESsG_fdvITuPsMUbUevoGQ',
             })
 
@@ -120,10 +120,10 @@ export default defineComponent({
             }
         }
 
-        const zoomToSlagelse = () => {
+        const zoomToStart = () => {
             map.value.flyTo({
-                center: [11.295584 ,55.341815],
-                zoom: 10,
+                center: [9.5018 ,56.2639],
+                zoom: 6.7,
                 speed: 3
             })
         }
@@ -141,7 +141,7 @@ export default defineComponent({
             guessMarker.value.remove();
             currentLocationMarker.value?.remove();
             
-            zoomToSlagelse();
+            zoomToStart();
         })
 
         watch(() => props.finished, () => {
@@ -150,7 +150,7 @@ export default defineComponent({
             guessMarker.value.remove();
             currentLocationMarker.value?.remove();
             
-            zoomToSlagelse();
+            zoomToStart();
         })
 
         return {
